@@ -1,7 +1,7 @@
 const container = document.querySelector(".container")
-const cloneContainer = container.cloneNode(true)
-cloneContainer.classList.add("duplicate")
-container.append(cloneContainer)
+// const cloneContainer = container.cloneNode(true)
+// cloneContainer.classList.add("duplicate")
+// container.append(cloneContainer)
 
 container.addEventListener("click", () => {
   container.classList.add("slide", "no-load")

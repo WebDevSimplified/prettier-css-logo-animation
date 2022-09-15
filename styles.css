@@ -31,15 +31,20 @@ body {
   justify-content: center;
   gap: var(--unit);
   translate: var(--offset);
-}
-
-:not(.duplicate) > .row {
   animation: load-row 1s calc(var(--delay) * 100ms + 500ms) forwards;
 }
 
-.container.no-load:not(.slide) .row {
+.row:nth-child(2n) {
+  --direction: -1
+}
+
+.container.no-load:not(.slide) > .row {
   animation: none;
   translate: 0;
+}
+
+.container.slide > .row {
+  animation: slide 1s calc((var(--delay) - 1) * 100ms) forwards;
 }
 
 .cell {
@@ -89,40 +94,22 @@ body {
   }
 }
 
-.container.slide:not(.duplicate) > .row {
-  animation: slide 1s calc((var(--delay) - 1) * 100ms) both;
-}
-
-.row:nth-child(2n) {
-  --direction: -1
-}
-
 @keyframes slide {
-  0% {
+  0%, 100% {
     translate: 0;
   }
 
-  100% {
+  50% {
     translate: calc(var(--container-width) * var(--direction, 1));
+    opacity: 1;
   }
-}
 
-.container.duplicate {
-  position: absolute;
-}
+  50.01% {
+    translate: calc((var(--container-width) * var(--direction, 1)) * -1);
+    opacity: 0;
+  }
 
-.container.duplicate .row {
-  translate: var(--container-width);
-}
-
-.container.slide .container.duplicate .row {
-  animation: slide 1s calc((var(--delay) - 1) * 100ms - 150ms) reverse both;
-}
-
-.container.slide .container.duplicate .row:nth-child(2n-1) {
-  --direction: -1;
-}
-
-.container.slide .container.duplicate .row:nth-child(2n) {
-  --direction: 1;
+  50.02% {
+    opacity: 1;
+  }
 }
